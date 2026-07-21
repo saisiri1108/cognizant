@@ -1,0 +1,10 @@
+using(var db = new AppDbContext())
+{
+    db.Products.Add(new Product
+    {
+        Name = "Laptop",
+        Price = 50000
+    });
+
+    db.SaveChanges();
+}
