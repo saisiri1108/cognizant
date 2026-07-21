@@ -1,0 +1,7 @@
+using(var db = new AppDbContext())
+{
+    foreach(var p in db.Products)
+    {
+        Console.WriteLine($"{p.Id} {p.Name} {p.Price}");
+    }
+}
