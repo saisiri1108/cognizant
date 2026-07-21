@@ -1,0 +1,25 @@
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
+{
+    [HttpGet]
+    public IActionResult GetProducts()
+    {
+        var products = new[]
+        {
+            new Product { Id = 1, Name = "Laptop", Price = 50000 },
+            new Product { Id = 2, Name = "Mouse", Price = 500 }
+        };
+
+        return Ok(products);
+    }
+}
+
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double Price { get; set; }
+}
