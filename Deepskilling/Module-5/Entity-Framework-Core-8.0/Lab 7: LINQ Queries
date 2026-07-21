@@ -1,0 +1,10 @@
+using(var db = new AppDbContext())
+{
+    var products = db.Products
+                     .Where(p => p.Price > 10000);
+
+    foreach(var p in products)
+    {
+        Console.WriteLine(p.Name);
+    }
+}
