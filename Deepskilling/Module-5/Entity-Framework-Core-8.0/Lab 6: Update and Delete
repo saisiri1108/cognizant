@@ -1,0 +1,10 @@
+using(var db = new AppDbContext())
+{
+    var product = db.Products.First();
+
+    product.Price = 55000;
+    db.SaveChanges();
+
+    db.Products.Remove(product);
+    db.SaveChanges();
+}
