@@ -1,0 +1,19 @@
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
+{
+    [HttpPost]
+    public IActionResult AddProduct(Product product)
+    {
+        return Ok("Product Added Successfully");
+    }
+}
+
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double Price { get; set; }
+}
