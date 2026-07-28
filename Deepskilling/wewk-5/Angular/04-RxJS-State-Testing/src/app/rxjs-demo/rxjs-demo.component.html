@@ -1,0 +1,18 @@
+<h2>RxJS Operators Demo</h2>
+
+<h3>map + filter</h3>
+<p>Even numbers 1-10, doubled: {{ mapFilterResult.join(', ') }}</p>
+
+<h3>switchMap (type-ahead style)</h3>
+<p>Latest search results only (earlier in-flight ones are cancelled):</p>
+<ul>
+  <li *ngFor="let r of switchMapResult">{{ r }}</li>
+</ul>
+
+<h3>mergeMap (concurrent requests)</h3>
+<ul>
+  <li *ngFor="let r of mergeMapResult">{{ r }}</li>
+</ul>
+
+<h3>catchError</h3>
+<p>{{ errorResult }}</p>
