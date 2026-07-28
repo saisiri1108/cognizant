@@ -1,0 +1,39 @@
+<h2>Reactive Form</h2>
+
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Username</label>
+    <input formControlName="username" />
+    <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
+      <small>Username must be at least 4 characters.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Password</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="signupForm.get('password')?.errors?.['weakPassword'] && signupForm.get('password')?.touched">
+      <small>Password needs at least one digit and one uppercase letter.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Confirm Password</label>
+    <input type="password" formControlName="confirmPassword" />
+    <div *ngIf="signupForm.errors?.['passwordsMismatch'] && signupForm.get('confirmPassword')?.touched">
+      <small>Passwords do not match.</small>
+    </div>
+  </div>
+
+  <!-- FormArray: dynamically add/remove phone number fields -->
+  <div formArrayName="phoneNumbers">
+    <label>Phone Numbers</label>
+    <div *ngFor="let phone of phoneNumbers.controls; let i = index">
+      <input [formControlName]="i" placeholder="Phone {{ i + 1 }}" />
+      <button type="button" (click)="removePhoneNumber(i)">Remove</button>
+    </div>
+    <button type="button" (click)="addPhoneNumber()">+ Add phone number</button>
+  </div>
+
+  <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+</form>
