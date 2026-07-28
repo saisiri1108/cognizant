@@ -1,0 +1,15 @@
+<h2>State Management Demo</h2>
+
+<h3>Service-based state (BehaviorSubject)</h3>
+<button (click)="addToCart()">Add Wireless Mouse to cart</button>
+<ul>
+  <li *ngFor="let item of cartItems$ | async">{{ item.name }} x{{ item.quantity }}</li>
+</ul>
+
+<h3>NgRx Store</h3>
+<p>Counter: {{ counterValue$ | async }}</p>
+<p *ngIf="isPositive$ | async">(positive)</p>
+<button (click)="increment()">+</button>
+<button (click)="decrement()">-</button>
+<button (click)="reset()">Reset</button>
+<button (click)="loadFromServer()">Load from "server" (Effect demo)</button>
