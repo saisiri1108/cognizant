@@ -1,0 +1,53 @@
+version: "3.9"
+
+# Demonstrates the core Docker Compose concepts: multiple services, a custom
+# network so they can reach each other by service name, and a named volume
+# for data that must survive container restarts.
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp   # public sample ASP.NET Core image
+    container_name: demo-api
+    ports:
+      - "8080:8080"          # host:container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=demo;Username=postgres;Password=postgres
+    depends_on:
+      - db
+    networks:
+      - demo-network
+
+  db:
+    image: postgres:16
+    container_name: demo-db
+    environment:
+      - POSTGRES_DB=demo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data   # named volume - data survives `docker compose down`
+    networks:
+      - demo-network
+
+  web:
+    image: nginx:alpine
+    container_name: demo-web
+    ports:
+      - "80:80"
+    volumes:
+      - ./web-content:/usr/share/nginx/html:ro   # bind mount - host folder mapped read-only into the container
+    depends_on:
+      - api
+    networks:
+      - demo-network
+
+# A custom bridge network: all three services can reach each other using
+# their service name as a hostname (e.g. "db" resolves to the db container's IP)
+# instead of hardcoded container IPs, which change every restart.
+networks:
+  demo-network:
+    driver: bridge
+
+volumes:
+  db-data:
