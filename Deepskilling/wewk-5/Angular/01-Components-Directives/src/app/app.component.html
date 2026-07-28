@@ -1,0 +1,31 @@
+<h1>{{ title }}</h1>
+
+<!-- Two-way binding -->
+<input [(ngModel)]="searchTerm" placeholder="Search users..." />
+
+<!-- *ngSwitch structural directive -->
+<div [ngSwitch]="viewMode">
+  <button (click)="viewMode = 'grid'">Grid</button>
+  <button (click)="viewMode = 'list'">List</button>
+  <p *ngSwitchCase="'grid'">Showing grid view</p>
+  <p *ngSwitchCase="'list'">Showing list view</p>
+  <p *ngSwitchDefault>Unknown view</p>
+</div>
+
+<!-- *ngIf structural directive -->
+<p *ngIf="filteredUsers.length === 0">No users match "{{ searchTerm }}".</p>
+
+<!-- *ngFor structural directive -->
+<div *ngFor="let user of filteredUsers; let i = index; trackBy: user.id">
+  <app-user-card [user]="user" (userSelected)="onUserSelected($event)"></app-user-card>
+</div>
+
+<!-- Custom directive [appHighlight] + custom pipe | truncate -->
+<div appHighlight="#d1ecf1" class="card">
+  <h4>Bio (custom directive + custom pipe)</h4>
+  <p>{{ bio | truncate: 60 }}</p>
+</div>
+
+<div *ngIf="selectedUser" class="card">
+  <strong>Selected:</strong> {{ selectedUser.name | uppercase }}
+</div>
