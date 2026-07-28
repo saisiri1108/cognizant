@@ -1,0 +1,21 @@
+<h2>Users</h2>
+
+<p *ngIf="loading">Loading...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<ul>
+  <!-- Route param: /users/:id  |  Query param: ?ref=home-list -->
+  <li *ngFor="let user of users">
+    <a [routerLink]="['/users', user.id]" [queryParams]="{ ref: 'home-list' }">
+      {{ user.name }}
+    </a>
+  </li>
+</ul>
+
+<a [routerLink]="['/reports']">Go to Reports (lazy-loaded)</a>
+
+<hr />
+
+<h3>Component-level DI demo</h3>
+<p>Count: {{ counterService.value }}</p>
+<button (click)="counterService.increment()">Increment</button>
