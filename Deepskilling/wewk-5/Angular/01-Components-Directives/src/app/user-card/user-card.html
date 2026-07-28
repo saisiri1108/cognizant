@@ -1,0 +1,13 @@
+<div class="card" [class.highlighted]="user.isActive" (click)="onSelect()">
+  <!-- Property binding: [property]="value" -->
+  <h3 [title]="user.name">{{ user.name }}</h3>
+
+  <!-- Built-in pipes: date, currency -->
+  <p>Joined: {{ user.joinedOn | date: 'longDate' }}</p>
+  <p>Salary: {{ user.salary | currency: 'INR' }}</p>
+
+  <!-- Attribute directive: ngClass with a conditional class map -->
+  <span [ngClass]="{ active: user.isActive, inactive: !user.isActive }">
+    {{ user.isActive ? 'Active' : 'Inactive' }}
+  </span>
+</div>
