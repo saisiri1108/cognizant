@@ -1,0 +1,53 @@
+<h2>Template-Driven Form</h2>
+
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+  <div>
+    <label>Name</label>
+    <input
+      name="name"
+      [(ngModel)]="model.name"
+      required
+      minlength="3"
+      #name="ngModel"
+    />
+    <div *ngIf="name.invalid && (name.touched || submitted)">
+      <small *ngIf="name.errors?.['required']">Name is required.</small>
+      <small *ngIf="name.errors?.['minlength']">Name must be at least 3 characters.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Email</label>
+    <input
+      name="email"
+      [(ngModel)]="model.email"
+      required
+      email
+      #email="ngModel"
+    />
+    <div *ngIf="email.invalid && (email.touched || submitted)">
+      <small *ngIf="email.errors?.['required']">Email is required.</small>
+      <small *ngIf="email.errors?.['email']">Enter a valid email address.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Age</label>
+    <input
+      name="age"
+      type="number"
+      [(ngModel)]="model.age"
+      required
+      min="18"
+      #age="ngModel"
+    />
+    <div *ngIf="age.invalid && (age.touched || submitted)">
+      <small *ngIf="age.errors?.['required']">Age is required.</small>
+      <small *ngIf="age.errors?.['min']">Must be at least 18.</small>
+    </div>
+  </div>
+
+  <button type="submit">Submit</button>
+
+  <p *ngIf="submitted && userForm.valid">Form submitted successfully!</p>
+</form>
